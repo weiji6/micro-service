@@ -1,0 +1,232 @@
+definitions:
+  res.Response:
+    properties:
+      Data: {}
+      Msg:
+        type: string
+      Status:
+        type: integer
+    type: object
+  service.TaskRequest:
+    properties:
+      Content:
+        type: string
+      EndTime:
+        type: integer
+      StartTime:
+        type: integer
+      Status:
+        type: integer
+      TaskID:
+        type: integer
+      Title:
+        type: string
+      UserID:
+        type: integer
+    type: object
+  service.UserRequest:
+    properties:
+      NickName:
+        description: 'inject_tag: json:"nick_name" form:"nick_name" uri:"nick_name"'
+        type: string
+      Password:
+        description: 'inject_tag: json:"password" form:"password" uri:"password"'
+        type: string
+      PasswordConfirm:
+        description: 'inject_tag: json:"password_confirm" form:"password_confirm"
+          uri:"password_confirm"'
+        type: string
+      UserName:
+        description: 'inject_tag: json:"user_name" form:"user_name" uri:"user_name"'
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录接口
+      parameters:
+      - description: 用户登录信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/res.Response'
+        "401":
+          description: 用户名或密码错误
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 用户登录
+      tags:
+      - user
+  /api/v1/user/register:
+    post:
+      consumes:
+      - application/json
+      description: 新用户注册接口
+      parameters:
+      - description: 用户注册信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/res.Response'
+        "409":
+          description: 用户已存在
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 用户注册
+      tags:
+      - user
+  /v1/api/task:
+    delete:
+      consumes:
+      - application/json
+      description: 用户删除事件
+      parameters:
+      - description: 事件数据
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: 解析失败
+          schema:
+            $ref: '#/definitions/res.Response'
+        "401":
+          description: 用户未授权
+          schema:
+            $ref: '#/definitions/res.Response'
+        "500":
+          description: 服务器错误
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 删除事件
+      tags:
+      - 事件
+    get:
+      consumes:
+      - application/json
+      description: 用户获取所有事件
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: 解析失败
+          schema:
+            $ref: '#/definitions/res.Response'
+        "401":
+          description: 用户未授权
+          schema:
+            $ref: '#/definitions/res.Response'
+        "500":
+          description: 服务器错误
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 获取所有事件
+      tags:
+      - 事件
+    post:
+      consumes:
+      - application/json
+      description: 用户创建新事件
+      parameters:
+      - description: 事件数据
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: 解析失败
+          schema:
+            $ref: '#/definitions/res.Response'
+        "401":
+          description: 用户未授权
+          schema:
+            $ref: '#/definitions/res.Response'
+        "500":
+          description: 服务器错误
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 创建新事件
+      tags:
+      - 事件
+    put:
+      consumes:
+      - application/json
+      description: 用户更新事件
+      parameters:
+      - description: 事件数据
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取成功
+          schema:
+            $ref: '#/definitions/res.Response'
+        "400":
+          description: 解析失败
+          schema:
+            $ref: '#/definitions/res.Response'
+        "401":
+          description: 用户未授权
+          schema:
+            $ref: '#/definitions/res.Response'
+        "500":
+          description: 服务器错误
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 更新事件
+      tags:
+      - 事件
+swagger: "2.0"

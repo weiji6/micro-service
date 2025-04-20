@@ -1,0 +1,11 @@
+.idea/
+
+api-gateway/config/config.yml
+task/config/config.yml
+user/config/config.yml
+
+api-gateway/Dockerfile
+task/Dockerfile
+user/Dockerfile
+
+docker-compose.yaml

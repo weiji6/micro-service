@@ -1,0 +1,184 @@
+definitions:
+  service.CommonResponse:
+    properties:
+      Code:
+        type: integer
+      Data:
+        type: string
+      Msg:
+        type: string
+    type: object
+  service.TaskDetailResponse:
+    properties:
+      Code:
+        type: integer
+      TaskDetail:
+        items:
+          $ref: '#/definitions/service.TaskModel'
+        type: array
+    type: object
+  service.TaskModel:
+    properties:
+      Content:
+        description: '@inject_tag: json:"content"'
+        type: string
+      EndTime:
+        description: '@inject_tag: json:"end_time"'
+        type: integer
+      StartTime:
+        description: '@inject_tag: json:"start_time"'
+        type: integer
+      Status:
+        description: '@inject_tag: json:"status"'
+        type: integer
+      TaskID:
+        description: '@inject_tag: json:"favorite_id"'
+        type: integer
+      Title:
+        description: '@inject_tag: json:"title"'
+        type: string
+      UserID:
+        description: '@inject_tag: json:"user_id"'
+        type: integer
+    type: object
+  service.TaskRequest:
+    properties:
+      Content:
+        type: string
+      EndTime:
+        type: integer
+      StartTime:
+        type: integer
+      Status:
+        type: integer
+      TaskID:
+        type: integer
+      Title:
+        type: string
+      UserID:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /task/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建新的任务
+      parameters:
+      - description: 创建任务请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+      summary: 创建任务
+      tags:
+      - task
+  /task/delete:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定的任务
+      parameters:
+      - description: 删除任务请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+        "404":
+          description: 任务不存在
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+      summary: 删除任务
+      tags:
+      - task
+  /task/show:
+    get:
+      consumes:
+      - application/json
+      description: 获取任务列表或特定任务详情
+      parameters:
+      - description: 查看任务请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回任务信息
+          schema:
+            $ref: '#/definitions/service.TaskDetailResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/service.TaskDetailResponse'
+        "404":
+          description: 任务不存在
+          schema:
+            $ref: '#/definitions/service.TaskDetailResponse'
+      summary: 查看任务
+      tags:
+      - task
+  /task/update:
+    put:
+      consumes:
+      - application/json
+      description: 更新现有任务的信息
+      parameters:
+      - description: 更新任务请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+        "404":
+          description: 任务不存在
+          schema:
+            $ref: '#/definitions/service.CommonResponse'
+      summary: 更新任务
+      tags:
+      - task
+swagger: "2.0"

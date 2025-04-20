@@ -1,0 +1,105 @@
+basePath: /api/v1
+definitions:
+  service.UserDetailResponse:
+    properties:
+      Code:
+        type: integer
+      UserDetail:
+        $ref: '#/definitions/service.UserModel'
+    type: object
+  service.UserModel:
+    properties:
+      NickName:
+        description: '@inject_tag: json:"nick_name"'
+        type: string
+      UserID:
+        description: '@inject_tag: json:"user_id"'
+        type: integer
+      UserName:
+        description: '@inject_tag: json:"user_name"'
+        type: string
+    type: object
+  service.UserRequest:
+    properties:
+      NickName:
+        description: 'inject_tag: json:"nick_name" form:"nick_name" uri:"nick_name"'
+        type: string
+      Password:
+        description: 'inject_tag: json:"password" form:"password" uri:"password"'
+        type: string
+      PasswordConfirm:
+        description: 'inject_tag: json:"password_confirm" form:"password_confirm"
+          uri:"password_confirm"'
+        type: string
+      UserName:
+        description: 'inject_tag: json:"user_name" form:"user_name" uri:"user_name"'
+        type: string
+    type: object
+host: localhost:8001
+info:
+  contact: {}
+  description: User service for task management system
+  title: User Service API
+  version: "1.0"
+paths:
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: 处理用户登录请求，验证用户凭据并返回用户详细信息
+      parameters:
+      - description: 用户登录请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回用户详细信息
+          schema:
+            $ref: '#/definitions/service.UserDetailResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/service.UserDetailResponse'
+        "401":
+          description: 用户验证失败
+          schema:
+            $ref: '#/definitions/service.UserDetailResponse'
+      summary: 用户登录
+      tags:
+      - user
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: 创建新用户账户
+      parameters:
+      - description: 用户注册请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功返回用户信息
+          schema:
+            $ref: '#/definitions/service.UserDetailResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/service.UserDetailResponse'
+        "409":
+          description: 用户已存在
+          schema:
+            $ref: '#/definitions/service.UserDetailResponse'
+      summary: 用户注册
+      tags:
+      - user
+swagger: "2.0"

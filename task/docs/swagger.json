@@ -1,0 +1,281 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/task/create": {
+            "post": {
+                "description": "创建新的任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "task"
+                ],
+                "summary": "创建任务",
+                "parameters": [
+                    {
+                        "description": "创建任务请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建成功",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "未授权",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/delete": {
+            "delete": {
+                "description": "删除指定的任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "task"
+                ],
+                "summary": "删除任务",
+                "parameters": [
+                    {
+                        "description": "删除任务请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除成功",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "任务不存在",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/show": {
+            "get": {
+                "description": "获取任务列表或特定任务详情",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "task"
+                ],
+                "summary": "查看任务",
+                "parameters": [
+                    {
+                        "description": "查看任务请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功返回任务信息",
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskDetailResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskDetailResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "任务不存在",
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskDetailResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/update": {
+            "put": {
+                "description": "更新现有任务的信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "task"
+                ],
+                "summary": "更新任务",
+                "parameters": [
+                    {
+                        "description": "更新任务请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TaskRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "任务不存在",
+                        "schema": {
+                            "$ref": "#/definitions/service.CommonResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "service.CommonResponse": {
+            "type": "object",
+            "properties": {
+                "Code": {
+                    "type": "integer"
+                },
+                "Data": {
+                    "type": "string"
+                },
+                "Msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TaskDetailResponse": {
+            "type": "object",
+            "properties": {
+                "Code": {
+                    "type": "integer"
+                },
+                "TaskDetail": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.TaskModel"
+                    }
+                }
+            }
+        },
+        "service.TaskModel": {
+            "type": "object",
+            "properties": {
+                "Content": {
+                    "description": "@inject_tag: json:\"content\"",
+                    "type": "string"
+                },
+                "EndTime": {
+                    "description": "@inject_tag: json:\"end_time\"",
+                    "type": "integer"
+                },
+                "StartTime": {
+                    "description": "@inject_tag: json:\"start_time\"",
+                    "type": "integer"
+                },
+                "Status": {
+                    "description": "@inject_tag: json:\"status\"",
+                    "type": "integer"
+                },
+                "TaskID": {
+                    "description": "@inject_tag: json:\"favorite_id\"",
+                    "type": "integer"
+                },
+                "Title": {
+                    "description": "@inject_tag: json:\"title\"",
+                    "type": "string"
+                },
+                "UserID": {
+                    "description": "@inject_tag: json:\"user_id\"",
+                    "type": "integer"
+                }
+            }
+        },
+        "service.TaskRequest": {
+            "type": "object",
+            "properties": {
+                "Content": {
+                    "type": "string"
+                },
+                "EndTime": {
+                    "type": "integer"
+                },
+                "StartTime": {
+                    "type": "integer"
+                },
+                "Status": {
+                    "type": "integer"
+                },
+                "TaskID": {
+                    "type": "integer"
+                },
+                "Title": {
+                    "type": "string"
+                },
+                "UserID": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
