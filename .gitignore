@@ -1,8 +1,8 @@
 .idea/
 
-api-gateway/config/config.yml
-task/config/config.yml
-user/config/config.yml
+api-gateway/config/config.yaml
+task/config/config.yaml
+user/config/config.yaml
 
 api-gateway/Dockerfile
 task/Dockerfile

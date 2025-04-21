@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-config
+  namespace: default
+data:
+  config.yaml: |
+    server:
+      domain: api-gateway
+      port: ":4000"
+      jwtSecret: WeiJi
+      version: 1.0
+      grpcAddress1: "0.0.0.0:10001"
+      grpcAddress2: "0.0.0.0:10002"
+    etcd:
+      address: 8.129.3.142:2379

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: task-config
+  namespace: default
+data:
+  config.yaml: |
+    service:
+      domain: task
+      version: 1.0
+      grpcAddress: "0.0.0.0:10002"
+    mysql:
+      driverName: mysql
+      host: 8.129.3.142
+      port: 3306
+      database: tasks
+      username: root
+      password: j72739906
+      charset: utf8mb4
+    redis:
+      address: 8.129.3.142:6379
+      password: j72739906
+    etcd:
+      address: 8.129.3.142:2379
